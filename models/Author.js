@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const Joi = require("joi")
-
+const Joi = require("joi");
 
 const AuthorSchema = new mongoose.Schema(
   {
@@ -35,8 +34,6 @@ const AuthorSchema = new mongoose.Schema(
   },
 );
 
-
-
 // Create Author Validation
 function createNewAuthor(obj) {
   const schema = Joi.object({
@@ -56,14 +53,14 @@ function updateNewAuthor(obj) {
     nationality: Joi.string().trim().min(2).max(100),
     image: Joi.string(),
   });
-  
+
   return schema.validate(obj);
 }
 
-const Author = mongoose.model("Author" , AuthorSchema);
+const Author = mongoose.model("Author", AuthorSchema);
 
 module.exports = {
   Author,
   updateNewAuthor,
   createNewAuthor,
-}
+};

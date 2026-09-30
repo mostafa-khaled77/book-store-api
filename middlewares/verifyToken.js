@@ -1,7 +1,6 @@
 const { func } = require("joi");
 const jwt = require("jsonwebtoken");
 
-
 // Verify Token
 function verifyToken(req, res, next) {
   const token = req.headers.token;
@@ -18,28 +17,26 @@ function verifyToken(req, res, next) {
   }
 }
 
-
 // Verify Token And Authorized the User
-function verifyTokenAndAuthorization(req,res,next){
-    verifyToken (req,res,()=>{
-        if(req.user.id === req.params.id || req.user.isAdmin ){
-            next()
-        }else{
-            res.status(403).json({message : "You Are Not Allowed"})
-        }
-    })
+function verifyTokenAndAuthorization(req, res, next) {
+  verifyToken(req, res, () => {
+    if (req.user.id === req.params.id || req.user.isAdmin) {
+      next;
+    } else {
+      return (403).json({ message: "You Are Not Allowed" });
+    }
+  });
 }
 
-
 // Verify Token And Admin
-function verifyTokenAndAdmin(req,res,next){
-    verifyToken (req,res,()=>{
-        if(req.user.isAdmin ){
-            next()
-        }else{
-            res.status(403).json({message : "You Are Not Allowed , Only Admin"})
-        }
-    })
+function verifyTokenAndAdmin(req, res, next) {
+  verifyToken(req, res, () => {
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).json({ message: "You Are Not Allowed , Only Admin" });
+    }
+  });
 }
 
 module.exports = {
