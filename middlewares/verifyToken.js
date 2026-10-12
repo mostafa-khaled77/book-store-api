@@ -1,4 +1,3 @@
-const { func } = require("joi");
 const jwt = require("jsonwebtoken");
 
 // Verify Token
@@ -21,9 +20,9 @@ function verifyToken(req, res, next) {
 function verifyTokenAndAuthorization(req, res, next) {
   verifyToken(req, res, () => {
     if (req.user.id === req.params.id || req.user.isAdmin) {
-      next;
+      next();
     } else {
-      return (403).json({ message: "You Are Not Allowed" });
+      res.status(403).json({ message: "You Are Not Allowed" });
     }
   });
 }
